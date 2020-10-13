@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${title}"></title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/font-awesome/5.14.0/css/all.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div th:replace="fragments/header :: header"></div>
+			<div class="col-md-4" style="padding-top: 35px;">
+				<div class="card" style="width: 18rem;">
+					<div class="card-header">Information</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item" th:text="'Name : ' + ${customer.firstName} + ' ' + ${customer.lastName}"></li>
+						<li class="list-group-item" th:text="'Phone no. : ' + ${customer.phone}"></li>
+						<li class="list-group-item" th:text="'Email : ' + ${customer.email}"></li>
+						<li class="list-group-item" th:text="'Address : ' + ${customer.address}"></li>
+						<li class="list-group-item" th:text="'City : ' + ${customer.city}"></li>
+					</ul>
+					<a href="#" th:href="@{/customers}" class="btn btn-primary btn-sm">View All Customers</a>
+				</div>
+			</div>
+			<div class="col-md-8" style="padding-top: 35px;">
+				<h1 class="h3 mb-3 font-weight-normal"><span class="badge badge-info">Create Animal</span></h1>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${message}">
+					<strong th:text="${message}"></strong>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="#" method="post" th:action="@{'/pet/create/' + ${customer.id}}" autocomplete="off" th:object="${pet}">
+					<div class="form-group row" style="padding-left: 15px;">
+						<label>Name</label>
+						<input type="text" class="form-control col-sm-4" style="margin-left: 20px;" th:field="*{name}" />
+						<label style="margin-left: 40px;">Select Type</label>
+						<select name="type" class="form-control col-sm-4" style="margin-left: 35px;" th:field="*{type}">
+							<option th:each="t : ${T(com.nw.spring.models.AnimalType).values()}" th:value="${t.name()}" th:text="${t.name()}"></option>
+						</select>
+					</div>
+					<div class="form group row" style="padding-left: 15px;">
+						<label style="margin-left: 10px;">Age</label>
+						<input type="number" class="form-control col-sm-4" style="margin-left: 25px;" th:field="*{age}" />
+						<label style="margin-left: 10px;">Health Problem</label>
+						<input type="text" class="form-control col-sm-4" style="margin-left: 35px;" th:field="*{healthProblem}" />
+					</div>
+					<input type="submit" class="btn btn-primary btn-sm" style="margin-left: 65px; margin-top: 15px;" value="Save">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
