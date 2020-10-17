@@ -14,14 +14,13 @@
 		<div class="row">
 			<div th:replace="fragments/header :: header"></div>
 			<div class="col-md-12" style="padding-top: 35px;">
-				<form action="#" th:action="@{/searchCustomer}" th:object="${customers}" method="get">
+				<form action="#" th:action="@{/searchCustomer}" method="get">
 					<div class="form-group row">
-						<label style="font-size: 20px; color: gray;">Search
-							Customer</label> <input type="text" name="name" class="form-control col-sm-4"
-							id="searchCustomer" style="margin-left: 60px;"
-							placeholder="Enter name.">
+						<!-- <label style="font-size: 20px; color: gray;">Search
+							Customer</label> --> <input type="text" name="name" class="form-control col-sm-4"
+							id="searchCustomer" placeholder="Enter name.">
 						<button type="submit" class="btn btn-primary btn-sm ml-2">Search</button>
-						<a href="#" class="btn btn-success btn-sm" style="margin-left: 30%;">View</a> <a href="#"
+						<!-- <a href="#" class="btn btn-success btn-sm" style="margin-left: 30%;">View</a> --> <a href="#"
 							th:href="@{/customer/reg}" class="btn btn-primary btn-sm" style="margin-left: 10px;">Add</a>
 					</div>
 				</form>
@@ -35,9 +34,9 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<h3>
+				<!-- <h3>
 					<span style="color: white; background-color: gray;">Customers</span>
-				</h3>
+				</h3> -->
 				<table class="table table-striped">
 					<thead>
 						<tr>

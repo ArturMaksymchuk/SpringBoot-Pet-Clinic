@@ -1,5 +1,6 @@
 package com.nw.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nw.spring.models.Customer;
 import com.nw.spring.models.Pet;
@@ -132,6 +134,29 @@ public class PetController {
 		map.put("title", "Customer And Pets");
 		map.put("pets", pets);
 		map.put("customer", customer);
+		return "pet/pets";
+	}
+	
+	@GetMapping("/searchPet/{customerId}")
+	public String searchPet(@PathVariable ("customerId") long id, @RequestParam("name") String name, Map<String, Object> map) {
+		Optional<Customer> customer = customerService.findById(id);
+		List<Pet> mypets = new ArrayList<>();
+		if(customer.isPresent()) {
+			List<Pet> pets = petService.findByCustomer(customer.get());
+			pets.stream().forEach(item -> {
+				if(item.getName().toLowerCase().equals(name.toLowerCase())) {
+					mypets.add(item);
+				}
+			});
+			if(mypets.size() > 0) {
+				map.put("pets", mypets);
+				map.put("message", name + " found.");
+			} else {
+				map.put("pets", pets);
+				map.put("message", name + " record not found.");
+			}
+			map.put("customer", customer.get());
+		}
 		return "pet/pets";
 	}
 }

@@ -33,7 +33,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="#">
+			<form action="#" th:action="@{/searchPet/{customerId}(customerId=${customer.id})}">
 				<div class="form-group row">
 					<input type="text" name="name" placeholder="Animal name." class="col-sm-4 col-form-label">
 					<input type="submit" class="btn btn-primary btn-sm" value="Search" />
