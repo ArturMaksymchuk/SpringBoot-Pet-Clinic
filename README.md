@@ -1,5 +1,9 @@
 # SpringBoot-Pet-Clinic
 Pet Clinic
+# Used Technologies
+- Spring Boot
+- Mysql
+- HTML, CSS, Bootstrap, Thymeleaf
 # Customer List
 ![c_list](https://user-images.githubusercontent.com/45649966/106014118-8f23c800-60eb-11eb-8027-1b9b9a55b285.PNG)
 # Customer Reg
