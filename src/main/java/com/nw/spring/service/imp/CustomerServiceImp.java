@@ -41,14 +41,9 @@ public class CustomerServiceImp implements CustomerService {
 	}
 
 	@Override
-	public Boolean save(Customer customer) {
+	public void save(Customer customer) {
 		// TODO Auto-generated method stub
-		try {
-			customerRepository.save(customer);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+		customerRepository.save(customer);
 	}
 
 	@Override
