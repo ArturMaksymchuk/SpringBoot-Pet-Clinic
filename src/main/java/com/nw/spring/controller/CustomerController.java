@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,9 +47,10 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/customer/create")
-	public String createCustomer(Customer customer, BindingResult result, Model model, Map<String, Object> map) {
-		map.put("customer", new Customer());
+	public String createCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, Map<String, Object> map) {
+		//map.put("customer", new Customer());
 		map.put("title", "Customer Registration");
+		System.out.println("Binding result : " + result);
 		if(result.hasErrors()) {
 			return "customer/customer_registration";
 		} else {
@@ -114,7 +119,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/customers/update/{id}")
-	public String processUpdateCustomerForm(@PathVariable("id") long id, Map<String, Object> map, Model model, Customer customer, BindingResult result) {
+	public String processUpdateCustomerForm(@PathVariable("id") long id, Customer customer, Map<String, Object> map, BindingResult result) {
 		if (result.hasErrors()) {
 			map.put("title", "Add Customer");
 			return "customer/customer_registration";
@@ -129,6 +134,21 @@ public class CustomerController {
 		List<Customer> customers = customerService.findAll();
 		map.put("title", "Customers");
 		map.put("customers", customers);
+		
+		/*
+		Customer c = customerService.findById(id).orElseThrow(() -> new IllegalArgumentException(id + " is invalid."));
+		c.setAddress(customer.getAddress());
+		c.setEmail(customer.getEmail());
+		c.setFirstName(customer.getFirstName());
+		c.setLastName(customer.getLastName());
+		c.setPhone(customer.getPhone());
+		Boolean check = customerService.save(c);
+		if (check == true) {
+			map.put("message", "Update successfully.");
+		} else {
+			map.put("message", "Problem occured.");
+		}
+		*/
 		return "customer/customers";
 	}
 	
@@ -140,6 +160,7 @@ public class CustomerController {
 		customers = customerService.findByFirstName(name);
 		if(customers.size() > 0) {
 			map.put("customers", customers);
+			//map.put("message", "Found customers.");
 		} else {
 			customers = customerService.findByLastName(name);
 			if(customers.size() > 0) {
@@ -147,6 +168,7 @@ public class CustomerController {
 			} else {
 				customers = customerService.findAll();
 				map.put("customers", customers);
+				//map.put("message", "No record customer.");
 			}
 		}
 		return "customer/customers";

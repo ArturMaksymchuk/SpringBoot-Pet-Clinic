@@ -11,7 +11,81 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <body>
 	<div th:replace="fragments/header :: header"></div>
-	<div class="col-md-12 row"
+	<div class="row" style="margin: 20px;">
+	<div class="col-md-6">
+		<form action="#" th:action="@{/searchPet/{customerId}(customerId=${customer.id})}">
+			<div class="form-group row" style="margin: 10px;">
+				<input type="text" name="name" class="form-control col-sm-6" placeholder="Enter animal name.">
+				<button type="submit" class="btn btn-primary btn-sm ml-2"><i class="fas fa-search"></i> Search</button>
+				<a class="btn btn-primary btn-sm ml-2" th:href="@{/pet/create/{customerId}(customerId=${customer.id})}"><i class="far fa-plus-square"></i>Add Pet</a>
+			</div>
+		</form>
+		<h3>
+			<span>List Of Pets</span>
+		</h3>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Animal Owner</th>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Age</th>
+						<th>Health Problem</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="p : ${pets}">
+						<td th:text="${customer.firstName} + ' ' + ${customer.lastName}">
+						<td th:text="${p.name}"></td>
+						<td th:text="${p.type}"></td>
+						<td th:text="${p.age}"></td>
+						<td th:text="${p.healthProblem}"></td>
+						<td>
+							<div>
+								<a
+									th:href="@{/pet/create/{customerId}(customerId=${customer.id})}"
+									class="btn btn-success btn-sm"><i
+									class="far fa-plus-square"></i> Add</a> <a href="#"
+									th:href="@{/deletePet/{id}(id=${p.id})}"
+									class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i>Delete</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+	<div class="col-md-6">
+			<div class="card mt-2">
+					<div class="card-header bg-secondary text-center text-white">Customer Detail</div>
+					<div class="card-body">
+						<table class="table">
+							<tbody>
+								<tr>
+									<th class="border-0">Name</th>
+									<td class="border-0" id="id" th:text="${customer.firstName} + ' ' + ${customer.lastName}">
+								</tr>
+								<tr>
+									<th class="border-0">Phone</th>
+									<td class="border-0" th:text="${customer.phone}"></td>
+								</tr>
+								<tr>
+									<th class="border-0">Address</th>
+									<td class="border-0" th:text="${customer.address}"></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					<div class="card-footer bg-secondary text-muted text-right">
+						<a href="/customers" class="btn btn-info btn-sm"><i class="fas fa-chevron-circle-left"></i> Customers</a>
+						<!-- <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-success btn-sm"><i class="far fa-edit"></i> Edit</a> -->
+					</div>
+				</div>
+		</div>
+	</div>
+	
+	<!-- <div class="col-md-12 row"
 		style="padding-top: 35px; padding-left: 5%; margin: -10px;">
 		<div class="card" style="width: 18rem;">
 			<div class="card-header">Information</div>
@@ -23,7 +97,6 @@
 				<li class="list-group-item" th:text="'Email : ' + ${customer.email}"></li>
 				<li class="list-group-item"
 					th:text="'Address : ' + ${customer.address}"></li>
-				<li class="list-group-item" th:text="'City : ' + ${customer.city}"></li>
 			</ul>
 			<a th:href="@{/customers}" class="btn btn-primary btn-sm">View
 				All Customers</a>
@@ -36,6 +109,7 @@
 						class="form-control col-sm-6"
 						style="display: inline; margin-left: 15px;">
 					<button type="submit" class="btn btn-primary btn-sm ml-2"><i class="fas fa-search"></i> Search</button>
+					<a class="btn btn-primary btn-sm ml-2" th:href="@{/pet/create/{customerId}(customerId=${customer.id})}"><i class="far fa-plus-square"></i>Add Pet</a>
 				</div>
 			</form>
 			<h3>
@@ -73,7 +147,7 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
+	</div> -->
 	<script src="/webjars/jquery/3.4.1/jquery.min.js"
 		type="text/javascript"></script>
 	<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"

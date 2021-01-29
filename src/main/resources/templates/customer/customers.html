@@ -40,7 +40,6 @@
 					<th>Email</th>
 					<th>Phone</th>
 					<th>Address</th>
-					<th>City</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -52,7 +51,6 @@
 					<td th:text="${c.email}"></td>
 					<td th:text="${c.phone}"></td>
 					<td th:text="${c.address}"></td>
-					<td th:text="${c.city}"></td>
 					<td>
 						<div>
 							<a href="#" th:href="@{/customers/delete/{id}(id=${c.id})}"

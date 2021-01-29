@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,8 +51,23 @@ public class PetController {
 	}
 
 	@PostMapping("/pet/create/{customerId}")
-	public String createPet(@PathVariable("customerId") long customerId, Map<String, Object> map, Pet pet,
+	public String createPet(@PathVariable("customerId") long customerId, Map<String, Object> map, @Valid Pet pet,
 			BindingResult result, Model model) {
+		
+		Optional<Customer> customer = customerService.findById(customerId);
+		if (result.hasErrors()) {
+			model.addAttribute("customer", customer.get());
+			return "pet/pet_create";
+		}
+		List<Pet> pets = petService.findByCustomer(customer.get());
+		model.addAttribute("pets", pets);
+		model.addAttribute("customer", customer.get());
+		pet.setCustomer(customer.get());
+		petService.save(pet);
+		return "redirect:/showPet/{customerId}";
+		
+		
+		/*
 		if (!pet.getName().equals("") || !pet.getHealthProblem().equals("")) {
 			Optional<Customer> customer = customerService.findById(customerId);
 			if (customer.isPresent()) {
@@ -74,7 +91,6 @@ public class PetController {
 				map.put("message", "No record found.");
 				return "customer/customers";
 			}
-			// return "pet/pet_create";
 		} else {
 			Optional<Customer> customer = customerService.findById(customerId);
 			if (customer.isPresent()) {
@@ -83,7 +99,7 @@ public class PetController {
 				map.put("pet", new Pet());
 				map.put("message", "Fill in the blank fields.");
 				map.put("pets", pets);
-				return "customer/customer_detail";
+				return "pet/pet_create";
 			} else {
 				List<Customer> customers = customerService.findAll();
 				map.put("title", "Customers");
@@ -92,6 +108,7 @@ public class PetController {
 				return "customer/customers";
 			}
 		}
+		*/
 	}
 
 	@GetMapping("/showPet/{customerId}")

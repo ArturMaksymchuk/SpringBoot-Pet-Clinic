@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Pet implements Serializable {
@@ -22,10 +23,14 @@ public class Pet implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank(message = "Pet name is required.")
 	private String name;
+	
 	private int age;
 
 	@Column(name = "health_problem")
+	@NotBlank(message = "Enter health problem.")
 	private String healthProblem;
 
 	@Enumerated(EnumType.STRING)
