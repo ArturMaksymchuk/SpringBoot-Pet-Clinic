@@ -10,8 +10,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nw.spring</groupId>
-	<artifactId>nw-spring-pet-clinic</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>japp</artifactId>
+	<version>1</version>
 	<name>nw-spring-pet-clinic</name>
 	<description>Pet Clinic</description>
 
