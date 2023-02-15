@@ -19,7 +19,7 @@ pipeline{
             steps{
                 script{
                     withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
-    sh "docker login -u martur -p ${dokerhubpwd} "
+    sh "docker login -u martur -p Artur1202 "
 }
                 }
                 sh "docker push martur/app:latest "
