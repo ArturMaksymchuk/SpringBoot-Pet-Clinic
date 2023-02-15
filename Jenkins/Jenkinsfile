@@ -25,7 +25,7 @@ pipeline{
         }
         stage("package app"){
             steps{
-                sh ls"
+                sh "ls"
                 echo "========executing A========"
             }
             
