@@ -11,7 +11,7 @@ pipeline{
         stage("create docker image"){
             steps{
                 
-                sh "sudo docker hello-world."
+                sh " docker run hello-world."
                 echo "========executing A========"
             }
             
