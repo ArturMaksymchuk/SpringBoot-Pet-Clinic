@@ -19,7 +19,7 @@ pipeline{
             steps{
                 script{
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dokerhub-pwd')]) {
-                    sh "docker login -u marturi -p ${dokerhub-pwd}"
+                    sh "docker login -u martur -p ${dokerhub-pwd}"
 }
                 }
                 sh "docker push martur/app:latest "
