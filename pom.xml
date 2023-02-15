@@ -22,7 +22,7 @@
 		<bootstrap.version>4.5.0</bootstrap.version>
 		<jquery.version>3.4.1</jquery.version>
 	</properties>
-<!-- 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -32,7 +32,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<dependency> -->
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -97,7 +97,7 @@
 		</dependency>
 	</dependencies>
 
-	<!-- <build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -105,6 +105,6 @@
     			<version>3.1.0</version>
 			</plugin>
 		</plugins>
-	</build> -->
+	</build>
 
 </project>
