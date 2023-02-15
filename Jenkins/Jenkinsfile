@@ -7,11 +7,11 @@ pipeline{
         //         echo "========executing A========"
         //     }
             
-        // }
+        }
         stage("create docker image"){
             steps{
                 
-                sh " docker run hello-world"
+                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
                 echo "========executing A========"
             }
             
