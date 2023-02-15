@@ -18,8 +18,8 @@ pipeline{
         stage("push image to hub"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dokerhub-pwd')]) {
-                    sh "docker login -u martur -p ${dokerhub-pwd}"
+                    withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
+    sh "docker login -u martur -p "${dokerhubpwd}" "
 }
                 }
                 sh "docker push martur/app:latest "
