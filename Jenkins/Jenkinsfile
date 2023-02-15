@@ -18,9 +18,9 @@ pipeline{
                 }
             }
         }
-        stage("b"){
+        stage("test"){
             steps{
-                echo "========executing A========"
+                sh "mvn test"
             }
             post{
                 always{
