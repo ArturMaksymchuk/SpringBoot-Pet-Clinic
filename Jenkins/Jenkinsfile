@@ -1,10 +1,10 @@
 pipeline{
     agent any
     stages{
-        stage("A"){
+        stage("compile code"){
             steps{
-                sh "ls -l"
-                sh "pwd"
+                sh "mvn compile"
+                
             }
             post{
                 always{
