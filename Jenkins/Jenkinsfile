@@ -1,13 +1,13 @@
 pipeline{
     agent any
     stages{
-        stage("package app"){
-            steps{
-                sh "mvn package"
-                echo "========executing A========"
-            }
+        // stage("package app"){
+        //     steps{
+        //         sh "mvn package"
+        //         echo "========executing A========"
+        //     }
             
-        }
+        // }
         stage("create docker image"){
             steps{
                 
