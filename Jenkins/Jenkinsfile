@@ -3,7 +3,8 @@ pipeline{
     stages{
         stage("A"){
             steps{
-                echo "========executing A========"
+                sh "ls -l"
+                sh "pwd"
             }
             post{
                 always{
