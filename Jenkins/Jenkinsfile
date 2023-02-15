@@ -8,23 +8,24 @@ pipeline{
             }
             
         }
-        stage("package app"){
+        stage("create docker image"){
             steps{
-                sh "mvn package"
+                
+                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
+                echo "========executing A========"
+            }
+            
+        }
+        stage("push image to hub"){
+            steps{
+                sh "ls"
                 echo "========executing A========"
             }
             
         }
         stage("package app"){
             steps{
-                sh "mvn package"
-                echo "========executing A========"
-            }
-            
-        }
-        stage("package app"){
-            steps{
-                sh "mvn package"
+                sh ls"
                 echo "========executing A========"
             }
             

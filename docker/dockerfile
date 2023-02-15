@@ -1,0 +1,9 @@
+
+FROM eclipse-temurin:19.0.2_7-jre-focal
+RUN mkdir /opt/app
+COPY target/japp-1.jar /opt/app/japp.jar
+
+CMD ["java", "-jar", "/opt/app/japp.jar"]
+
+
+ EXPOSE 8080
