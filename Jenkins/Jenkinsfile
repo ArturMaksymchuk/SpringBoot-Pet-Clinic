@@ -4,7 +4,6 @@ pipeline{
         // stage("package app"){
         //     steps{
         //         sh "mvn package"
-        //         echo "========executing A========"
         //     }
             
         // }
@@ -12,14 +11,19 @@ pipeline{
             steps{
                 
                 sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
-                echo "========executing A========"
+                
             }
             
         }
         stage("push image to hub"){
             steps{
-                sh "ls"
-                echo "========executing A========"
+                script{
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dokerhub-pwd')]) {
+                    sh "docker login -u marturi -p ${dokerhub-pwd}"
+}
+                }
+                sh "docker push martur/app:latest "
+                
             }
             
         }
