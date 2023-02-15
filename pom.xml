@@ -16,7 +16,7 @@
 	<description>Pet Clinic</description>
 
 	<properties>
-		<java.version>108</java.version>
+		<java.version>1.8</java.version>
 		<webjars-locator.version>0.40</webjars-locator.version>
 		<font-awesome.version>5.14.0</font-awesome.version>
 		<bootstrap.version>4.5.0</bootstrap.version>
@@ -97,7 +97,7 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+	<!-- <build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -105,6 +105,6 @@
     			<version>3.1.0</version>
 			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 
 </project>
