@@ -1,23 +1,34 @@
 pipeline{
     agent any
     stages{
-        stage("compile code"){
+        stage("package app"){
             steps{
-                sh "mvn compile"
-                
+                sh "mvn package"
+                echo "========executing A========"
             }
+            
         }
-        stage("test"){
+        stage("package app"){
             steps{
-                sh "mvn test"
-                sh "pwd"
+                sh "mvn package"
+                echo "========executing A========"
             }
+            
         }
-        stage("c"){
+        stage("package app"){
             steps{
+                sh "mvn package"
+                echo "========executing A========"
+            }
+            
+        }
+        stage("package app"){
+            steps{
+                sh "mvn package"
                 echo "========executing A========"
             }
             
         }
     }
+    
 }

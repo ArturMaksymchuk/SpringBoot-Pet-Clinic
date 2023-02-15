@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+    stages{
+        stage("compile code"){
+            steps{
+                sh "mvn compile"
+                
+            }
+        }
+        stage("test"){
+            steps{
+                sh "mvn test"
+                sh "pwd"
+            }
+        }
+        stage("c"){
+            steps{
+                echo "========executing A========"
+            }
+            
+        }
+    }
+}
