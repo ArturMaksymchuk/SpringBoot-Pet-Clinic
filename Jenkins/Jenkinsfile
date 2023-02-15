@@ -21,6 +21,7 @@ pipeline{
         stage("test"){
             steps{
                 sh "mvn test"
+                sh "pwd"
             }
             post{
                 always{
