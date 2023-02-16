@@ -7,14 +7,14 @@ pipeline{
         //     }
             
         // }
-        stage("create docker image"){
-            steps{
+//         stage("create docker image"){
+//             steps{
                 
-                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
+//                 sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
                 
-            }
+//             }
             
-        }
+//         }
         stage("push image to hub"){
             steps{
                 script{
@@ -27,10 +27,15 @@ pipeline{
             }
             
         }
-        stage("kubectl"){
+        stage("kubectl rollout"){
             steps{
-                sh "ls"
-                echo "========executing A========"
+                script{
+                    withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
+    sh "docker login -u martur -p '${githubpwd}' "
+}
+                }
+                sh "docker push martur/app:latest "
+                
             }
             
         }
