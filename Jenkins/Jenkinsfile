@@ -49,7 +49,7 @@ pipeline{
                           sh "aws eks update-kubeconfig --name $cluster_name"
                           sh "ls -la"
                           sh "ls k8s -la"
-                          sh "kubectl apply -f k8s/clinic.yaml"
+                          sh "kubectl apply -f ./k8s/clinic.yaml"
                       } else {
                          error "The current cluster name ($current_cluster_name) does not match the expected cluster name ($cluster_name)."
                       }
