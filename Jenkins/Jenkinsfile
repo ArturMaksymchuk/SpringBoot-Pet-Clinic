@@ -1,32 +1,32 @@
 pipeline{
     agent any
     stages{
-        stage("package app"){
-            steps{
-                sh "mvn package"
-            }
+//         stage("package app"){
+//             steps{
+//                 sh "mvn package"
+//             }
             
-        }
-        stage("create docker image"){
-            steps{
+//         }
+//         stage("create docker image"){
+//             steps{
                 
-                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
+//                 sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
                 
-            }
+//             }
             
-        }
-        stage("push image to hub"){
-            steps{
-                script{
-                    withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
-    sh "docker login -u martur -p '${githubpwd}' "
-}
-                }
-                sh "docker push martur/app:latest "
+//         }
+//         stage("push image to hub"){
+//             steps{
+//                 script{
+//                     withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
+//     sh "docker login -u martur -p '${githubpwd}' "
+// }
+//                 }
+//                 sh "docker push martur/app:latest "
                 
-            }
+//             }
             
-        }
+//         }
         stage("create cluster") {
             environment {
                 cluster_name = 'clinic1'
@@ -37,8 +37,8 @@ pipeline{
             steps {
                 script {
                     withAWS(region: 'eu-central-1', credentials: 'aws-credentials') {
-                        def cluster_exists = sh(script: "eksctl get cluster $cluster_name | awk 'NR==2{print \$1}'")
-                        if (cluster_exists == '$cluster_name') {
+                        def cluster_exists = sh(return: "eksctl get cluster $cluster_name | awk 'NR==2{print \$1}'")
+                        if ($cluster_exists == '$cluster_name') {
                             echo 'cluster created'
                             sh "aws eks update-kubeconfig --name $cluster_name"
                             sh "kubectl apply -f k8s/clinic.yaml"
