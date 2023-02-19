@@ -48,10 +48,13 @@ pipeline{
                      if (current_cluster_name == cluster_name) {
                           sh "aws eks update-kubeconfig --name $cluster_name"
                           sh "cd k8s"
+                          sh "ls -la   | pwd"
                           sh "kubectl apply -f clinic.yaml"
                           sh "cd .."
                       } else {
-                         error "The current cluster name ($current_cluster_name) does not match the expected cluster name ($cluster_name)."
+                         
+                         sh "eksctl create cluster -f k8s/cluster.yaml"
+                         
                       }
                      }
                  }
