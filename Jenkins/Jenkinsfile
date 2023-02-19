@@ -27,26 +27,33 @@ pipeline{
 //             }
             
 //         }
-        stage("kubectl rollout"){
-            steps{
-                script{
-                    withKubeCredentials(kubectlCredentials: 
-                    [[caCertificate: '', clusterName: '', contextName: '', credentialsId: 'aws-jenkins-sekret-key', namespace: '', serverUrl: ''], 
-                    [caCertificate: '', clusterName: '', contextName: '', credentialsId: 'aws-jenkins-acces-key', namespace: '', serverUrl: '']]) {
-            sh "export AWS_ACCESS_KEY_ID='${githubpwd}' | cut -d',' -f1)"
-            sh "export AWS_SECRET_ACCESS_KEY='${githubpwd}' | cut -d',' -f2)"
-            sh "export AWS_DEFAULT_REGION='eu-central-1'"
-}
-                }
-                sh "eksctl get cluster  "
-                
+        stage("create cluster") {
+            environment {
+                cluster_name = 'clinic3'
+                region_name = 'eu-central-1'
             }
-            
+            steps {
+                script {
+                    withAWS(region: 'eu-central-1', credentials: 'aws-credentials') {
+                        def cluster_exists = sh(script: "eksctl get cluster $cluster_name | awk 'NR==2{print \$1}'", returnStatus: true)
+                        if (cluster_exists == 0) {
+                            echo 'cluster created'
+                            sh "aws eks --region $region_name update-kubeconfig --name $cluster_name"
+                        } else {
+                            sh "eksctl create cluster --name $cluster_name --region $region_name --instance-types t2.micro --nodes 1"
+                        }
+                        
+                    }
+                }
+                echo "done"
+            }
         }
     }
     
 }
-
+// withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+    // some block
+// }
 
 // kubeconfig(credentialsId: 'eks-tocken', serverUrl: '') {
 //     // some block
@@ -56,9 +63,9 @@ pipeline{
 //       steps {
 //         script {
 //           withCredentials([string(credentialsId: 'aws-creds', variable: 'AWS_CREDENTIALS')]) {
-            // sh "export AWS_ACCESS_KEY_ID=$(echo ${AWS_CREDENTIALS} | cut -d',' -f1)"
-            // sh "export AWS_SECRET_ACCESS_KEY=$(echo ${AWS_CREDENTIALS} | cut -d',' -f2)"
-            // sh "export AWS_DEFAULT_REGION=${AWS_REGION}"
+//             sh "export AWS_ACCESS_KEY_ID=$(echo ${AWS_CREDENTIALS} | cut -d',' -f1)"
+//             sh "export AWS_SECRET_ACCESS_KEY=$(echo ${AWS_CREDENTIALS} | cut -d',' -f2)"
+//             sh "export AWS_DEFAULT_REGION=${AWS_REGION}"
 
 //             sh "aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}"
 //             sh "aws-iam-authenticator token -i ${EKS_CLUSTER_NAME} | awk '{print $2}' | base64 --decode > token"
