@@ -1,32 +1,32 @@
 pipeline{
     agent any
     stages{
-        // stage("package app"){
-        //     steps{
-        //         sh "mvn package"
-        //     }
+        stage("package app"){
+            steps{
+                sh "mvn package"
+            }
             
-        // }
-//         stage("create docker image"){
-//             steps{
+        }
+        stage("create docker image"){
+            steps{
                 
-//                 sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
+                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
                 
-//             }
+            }
             
-//         }
-//         stage("push image to hub"){
-//             steps{
-//                 script{
-//                     withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
-//     sh "docker login -u martur -p '${githubpwd}' "
-// }
-//                 }
-//                 sh "docker push martur/app:latest "
+        }
+        stage("push image to hub"){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'githubpsw', variable: 'githubpwd')]) {
+    sh "docker login -u martur -p '${githubpwd}' "
+}
+                }
+                sh "docker push martur/app:latest "
                 
-//             }
+            }
             
-//         }
+        }
         stage("create cluster") {
             environment {
                 cluster_name = 'clinic1'
