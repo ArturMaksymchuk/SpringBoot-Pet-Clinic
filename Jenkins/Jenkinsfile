@@ -30,24 +30,33 @@ pipeline{
         stage("create cluster") {
             environment {
                 cluster_name = 'clinic1'
-                region_name = 'eu-central-1'
-                aws_instance_type = 't2.micro'
-                nodes_qty = 1
-            }
-            steps {
-                script {
-                    withAWS(region: 'eu-central-1', credentials: 'aws-credentials') {
-                    
-                            sh "aws eks update-kubeconfig --name $cluster_name"
-                            sh "kubectl apply -f k8s/clinic.yaml"
-                        
-                        
-                        
-                    }
-                }
-                echo "done"
-            }
+             region_name = 'eu-central-1'
+              aws_instance_type = 't2.micro'
+              nodes_qty = 1
+              }
+             steps {
+              script {
+                 withAWS(region: 'eu-central-1', credentials: 'aws-credentials') {
+                     // Run command to get the current cluster name
+                      def current_cluster_name = sh(
+                    script: "eksctl get cluster $cluster_name | awk 'NR==2{print \$1}'",
+                    returnStdout: true
+                     ).trim()
+                     echo "Current cluster name: $current_cluster_name"
+
+                     // Compare the current cluster name with the expected cluster name
+                     if (current_cluster_name == cluster_name) {
+                          sh "aws eks update-kubeconfig --name $cluster_name"
+                          sh "ls -la"
+                          sh "kubectl apply -f k8s/clinic.yaml"
+                      } else {
+                         error "The current cluster name ($current_cluster_name) does not match the expected cluster name ($cluster_name)."
+                      }
+                     }
+                 }
+             }
         }
+   
     }
     
 }
