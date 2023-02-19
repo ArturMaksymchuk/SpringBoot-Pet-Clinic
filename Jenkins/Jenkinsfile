@@ -47,13 +47,12 @@ pipeline{
                      // Compare the current cluster name with the expected cluster name
                      if (current_cluster_name == cluster_name) {
                           sh "aws eks update-kubeconfig --name $cluster_name"
-                          sh "cd k8s"
-                          sh "ls -la   | pwd"
+                          
                           sh "kubectl apply -f clinic.yaml"
-                          sh "cd .."
+                          
                       } else {
                          
-                         sh "eksctl create cluster -f k8s/cluster.yaml"
+                         sh "eksctl create cluster -f cluster.yaml"
                          
                       }
                      }
