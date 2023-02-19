@@ -40,11 +40,11 @@ pipeline{
                         def cluster_exists = sh(script: "eksctl get cluster $cluster_name | awk 'NR==2{print \$1}'")
                         if (cluster_exists == '$cluster_name') {
                             echo 'cluster created'
-                            sh "aws eks --region $region_name update-kubeconfig --name $cluster_name"
+                            sh "aws eks update-kubeconfig --name $cluster_name"
                             sh "kubectl apply -f k8s/clinic.yaml"
                         } else {
                             sh "eksctl create cluster -f k8s/cluster.yaml"
-                            sh "kubectl apply -f clinic.yaml"
+                            sh "kubectl apply -f k8s/clinic.yaml"
                         }
                         
                     }
