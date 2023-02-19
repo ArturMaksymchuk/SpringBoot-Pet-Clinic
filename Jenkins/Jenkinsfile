@@ -47,8 +47,8 @@ pipeline{
                      // Compare the current cluster name with the expected cluster name
                      if (current_cluster_name == cluster_name) {
                           sh "aws eks update-kubeconfig --name $cluster_name"
-                          sh "./kubectl version"
-                          sh "./kubectl apply -f clinic.yaml"
+                          sh "sudo kubectl version"
+                          sh "sudo kubectl apply -f clinic.yaml"
                           
                       } else {
                          
