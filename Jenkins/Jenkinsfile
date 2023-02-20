@@ -47,11 +47,9 @@ pipeline{
                      // Compare the current cluster name with the expected cluster name
                      if (current_cluster_name == cluster_name) {
                           sh "aws eks update-kubeconfig --name $cluster_name"
-                        //   sh "kubectl version"
                           sh "kubectl apply -f k8s/clinic.yaml"
                           
                       } else {
-                        //  sh "kubectl version"
                          sh "eksctl create cluster -f k8s/cluster.yaml"
                          sh "kubectl apply -f k8s/clinic.yaml"
 
@@ -65,38 +63,3 @@ pipeline{
     }
     
 }
-// withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-    // some block
-// }
-
-// kubeconfig(credentialsId: 'eks-tocken', serverUrl: '') {
-//     // some block
-// }
-
-// stage("Deploy to EKS Cluster") {
-//       steps {
-//         script {
-//           withCredentials([string(credentialsId: 'aws-creds', variable: 'AWS_CREDENTIALS')]) {
-//             sh "export AWS_ACCESS_KEY_ID=$(echo ${AWS_CREDENTIALS} | cut -d',' -f1)"
-//             sh "export AWS_SECRET_ACCESS_KEY=$(echo ${AWS_CREDENTIALS} | cut -d',' -f2)"
-//             sh "export AWS_DEFAULT_REGION=${AWS_REGION}"
-
-//             sh "aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}"
-//             sh "aws-iam-authenticator token -i ${EKS_CLUSTER_NAME} | awk '{print $2}' | base64 --decode > token"
-//             sh "export AWS_AUTH=$(cat token)"
-
-//             sh "kubectl set image deployment/your-app your-app=${DOCKER_IMAGE}:${env.BUILD_NUMBER} --record"
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   post {
-//     always {
-//       sh "rm -f token"
-//       sh "aws --profile default configure set aws_access_key_id ''"
-//       sh "aws --profile default configure set aws_secret_access_key ''"
-//     }
-//   }
-// }
