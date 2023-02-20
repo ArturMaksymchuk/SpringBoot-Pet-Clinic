@@ -14,7 +14,7 @@ pipeline{
                 // sh "cp target/japp-1.jar docker/japp.jar"
                 // sh "ls -la docker/"
                 
-                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
+                sh "docker build  -t martur/app:latest  -f dockerfile ."
                 
             }
             
