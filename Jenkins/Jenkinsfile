@@ -13,8 +13,8 @@ pipeline{
             steps{
                 sh "cp target/japp-1.jar docker/japp.jar"
                 sh "ls -la docker/"
-                sh "cd docker"
-                sh "docker build  -t martur/app:latest  -f dockerfile ."
+                sh 
+                sh "docker build  -t martur/app:latest  -f docker/dockerfile ."
                 cd "pwd"
             }
             

@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+docker/japp.jar
+
+docker/japp-1.jar
