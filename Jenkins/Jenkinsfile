@@ -48,12 +48,12 @@ pipeline{
                      if (current_cluster_name == cluster_name) {
                           sh "aws eks update-kubeconfig --name $cluster_name"
                           sh "kubectl version"
-                        //   sh "kubectl apply -f k8s/clinic.yaml"
+                          sh "kubectl apply -f k8s/clinic.yaml"
                           
                       } else {
                          sh "kubectl version"
-                        //  sh "eksctl create cluster -f k8s/cluster.yaml"
-                        //  sh "kubectl apply -f k8s/clinic.yaml"
+                         sh "eksctl create cluster -f k8s/cluster.yaml"
+                         sh "kubectl apply -f k8s/clinic.yaml"
 
                          
                       }
