@@ -18,13 +18,13 @@ spec:
         image: martur/app:latest
         ports:
         - containerPort: 8080
-        # resources:
-        #   requests:
-        #     cpu: "250m"
-        #     memory: "128Mi"
-        #   limits:
-        #    cpu: "500m"
-        #    memory: "256Mi"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "128Mi"
+          limits:
+           cpu: "500m"
+           memory: "256Mi"
 
 ---
 
