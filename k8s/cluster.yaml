@@ -9,7 +9,7 @@ nodeGroups:
   - name: ng-1
     instanceType: c5a.xlarge
     desiredCapacity: 1
-    volumeSize: 10
+    volumeSize: 20
 
 
  
