@@ -6,4 +6,4 @@ COPY target/japp-1.jar /opt/app/japp.jar
 CMD ["java", "-jar", "/opt/app/japp.jar"]
 
 
- EXPOSE 8080
+EXPOSE 8080
