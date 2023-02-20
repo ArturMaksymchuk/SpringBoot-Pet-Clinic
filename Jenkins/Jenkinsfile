@@ -4,6 +4,8 @@ pipeline{
         stage("package app"){
             steps{
                 sh "mvn package"
+                sh "pwd"
+                sh "ls -la target/"
             }
             
         }
