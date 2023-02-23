@@ -7,9 +7,9 @@ metadata:
 
 nodeGroups:
   - name: ng-1
-    instanceType: c5a.xlarge
-    desiredCapacity: 1
-    volumeSize: 20
+    instanceType: t2.micro
+    desiredCapacity: 2
+    volumeSize: 10
 
 
  

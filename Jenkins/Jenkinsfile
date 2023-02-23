@@ -11,11 +11,7 @@ pipeline{
         }
         stage("create docker image"){
             steps{
-                // sh "cp target/japp-1.jar docker/japp.jar"
-                // sh "ls -la docker/"
-                
-                sh "docker build  -t martur/app:$BUILD_NUMBER ."
-                
+                sh "docker build  -t martur/app:$BUILD_NUMBER ."   
             }
             
         }
@@ -41,26 +37,18 @@ pipeline{
              steps {
               script {
                  withAWS(region: 'eu-central-1', credentials: 'aws-credentials') {
-                     // Run command to get the current cluster name
                       def current_cluster_name = sh(
                     script: "eksctl get cluster $cluster_name | awk 'NR==2{print \$1}'",
                     returnStdout: true
                      ).trim()
-                     echo "Current cluster name: $current_cluster_name"
-
-                     // Compare the current cluster name with the expected cluster name
                      if (current_cluster_name == cluster_name) {
                         sh "sed -i 's/latest/$BUILD_NUMBER/g' k8s/clinic.yaml"
                           sh "aws eks update-kubeconfig --name $cluster_name"
-                          sh "kubectl apply -f k8s/clinic.yaml"
-                          
+                          sh "kubectl apply -f k8s/clinic.yaml" 
                       } else {
                          sh "eksctl create cluster -f k8s/cluster.yaml"
                          sh "sed -i 's/latest/$BUILD_NUMBER/g' k8s/clinic.yaml"
-                         sh "kubectl apply -f k8s/clinic.yaml"
-                         
-
-                         
+                         sh "kubectl apply -f k8s/clinic.yaml"  
                       }
                      }
                  }
