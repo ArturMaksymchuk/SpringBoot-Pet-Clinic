@@ -6,7 +6,7 @@ metadata:
   region: eu-central-1
 
 nodeGroups:
-  - name: ng-1
+  - name: ng-2
     instanceType: t3.large
     desiredCapacity: 2
     volumeSize: 10
