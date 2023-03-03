@@ -1,14 +1,20 @@
 pipeline{
     agent any
     stages{
-        stage("package app"){
+                stage("Test"){
             steps{
-                sh "mvn package"
-                sh "pwd"
-                sh "ls -la target/"
+                sh "mvn test"
             }
             
         }
+
+        stage("package app"){
+            steps{
+                sh "mvn package"
+            }
+            
+        }
+
         stage("create docker image"){
             steps{
                 sh "docker build  -t martur/app:$BUILD_NUMBER ."   
