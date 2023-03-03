@@ -35,7 +35,7 @@ pipeline{
         }
         stage("create cluster") {
             environment {
-                cluster_name = 'clinic1'
+                cluster_name = 'clinic2'
              region_name = 'eu-central-1'
               aws_instance_type = 't2.micro'
               nodes_qty = 1
