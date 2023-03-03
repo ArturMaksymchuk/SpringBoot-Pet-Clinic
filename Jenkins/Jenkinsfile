@@ -52,6 +52,8 @@ pipeline{
                           sh "aws eks update-kubeconfig --name $cluster_name"
                           sh "kubectl apply -f k8s/clinic.yaml" 
                           sh "kubectl get svc"
+                          sh "ls -la"
+                          sh "pwd"
                       } else {
                          sh "eksctl create cluster -f k8s/cluster.yaml"
                          sh "sed -i 's/latest/$BUILD_NUMBER/g' k8s/clinic.yaml"
